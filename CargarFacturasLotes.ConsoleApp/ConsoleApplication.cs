@@ -83,6 +83,7 @@ public class ConsoleApplication
         try
         {
             var rutaCsv = _configuration["CsvPath"];
+            
             if (string.IsNullOrEmpty(rutaCsv))
             {
                 Console.WriteLine("Error: No se ha configurado la ruta del archivo CSV (CsvPath)");
@@ -90,6 +91,13 @@ public class ConsoleApplication
             }
 
             Console.WriteLine($"Ruta del archivo CSV: {rutaCsv}");
+            
+            // Check if file exists
+            if (!File.Exists(rutaCsv))
+            {
+                Console.WriteLine($"Error: El archivo CSV no existe en la ruta especificada: {rutaCsv}");
+                return;
+            }
 
             // Paso 1: Registrar facturas desde CSV
             Console.WriteLine("Paso 1: Leyendo y registrando facturas desde CSV...");
@@ -122,6 +130,8 @@ public class ConsoleApplication
         {
             _logger.LogError(ex, "Error durante el procesamiento de facturas");
             Console.WriteLine($"Error: {ex.Message}");
+            Console.WriteLine($"Tipo de excepción: {ex.GetType().Name}");
+            Console.WriteLine($"Stack trace: {ex.StackTrace}");
         }
     }
 }

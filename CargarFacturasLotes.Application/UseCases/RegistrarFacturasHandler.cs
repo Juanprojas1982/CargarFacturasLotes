@@ -22,8 +22,17 @@ public class RegistrarFacturasHandler
 
         foreach (var factura in facturas)
         {
-            // Verificar si ya existe un registro con la misma combinación
-            var existe = await _procesoRepository.ExisteProcesoAsync(
+            // Verificar si ya existe un registro con la misma combinación (sin importar el estado)
+            // Esto evita recargar facturas que ya fueron procesadas exitosamente
+            var existeExitoso = await _procesoRepository.ExisteProcesoAsync(
+                tipoProceso, 
+                factura.NoFactura, 
+                factura.IdAdmision, 
+                factura.SedeId, 
+                EstadoProceso.Exitoso
+            );
+            
+            var existePendiente = await _procesoRepository.ExisteProcesoAsync(
                 tipoProceso, 
                 factura.NoFactura, 
                 factura.IdAdmision, 
@@ -31,7 +40,7 @@ public class RegistrarFacturasHandler
                 EstadoProceso.SinEnviar
             );
 
-            if (!existe)
+            if (!existeExitoso && !existePendiente)
             {
                 var procesoFactura = new ProcesoFactura(
                     tipoProceso,

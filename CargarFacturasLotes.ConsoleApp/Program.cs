@@ -55,6 +55,10 @@ class Program
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(context.Configuration.GetConnectionString("DefaultConnection")));
 
+                // For testing with in-memory database, uncomment the line below:
+                // services.AddDbContext<AppDbContext>(options =>
+                //     options.UseInMemoryDatabase("CargarFacturasLotesDemo"));
+
                 // Repositorios
                 services.AddScoped<IProcesoFacturaRepository, ProcesoFacturaRepository>();
 
