@@ -17,7 +17,7 @@ public class ProcesarFacturasHandler
     public async Task<(int procesados, int exitosos, int errores)> EjecutarAsync(TipoProceso tipoProceso)
     {
         var procesossPendientes = await _procesoRepository.ObtenerPendientesAsync(tipoProceso);
-        
+
         int procesados = 0;
         int exitosos = 0;
         int errores = 0;
@@ -33,14 +33,8 @@ public class ProcesarFacturasHandler
 
                 // Llamar al endpoint correspondiente
                 string resultado;
-                if (tipoProceso == TipoProceso.Anulacion)
-                {
-                    resultado = await _endpointService.LlamarEndpointAnulacionAsync(proceso.IdAdmision, proceso.SedeId);
-                }
-                else
-                {
-                    resultado = await _endpointService.LlamarEndpointNumeracionAsync(proceso.IdAdmision, proceso.SedeId);
-                }
+
+                resultado = await _endpointService.LlamarEndpointNumeracionAsync(proceso.IdAdmision, proceso.SedeId);
 
                 // Marcar como exitoso
                 proceso.MarcarComoExitoso(resultado);
@@ -55,6 +49,7 @@ public class ProcesarFacturasHandler
 
             await _procesoRepository.ActualizarAsync(proceso);
             procesados++;
+            Console.WriteLine($" Progreso ({procesados}/{procesossPendientes.Count}): Factura {proceso.NoFactura} - Admision = {proceso.IdAdmision}");
         }
 
         await _procesoRepository.SaveChangesAsync();

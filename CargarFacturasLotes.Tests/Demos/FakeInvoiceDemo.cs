@@ -31,7 +31,7 @@ public class FakeInvoiceDemo
         Console.WriteLine("\n1. Generando Listado Fake de Facturas:");
         Console.WriteLine("----------------------------------------");
         var fakeInvoices = FakeInvoiceGenerator.GenerateFakeInvoiceList(10);
-        
+
         foreach (var (invoice, index) in fakeInvoices.Select((inv, i) => (inv, i + 1)))
         {
             Console.WriteLine($"   {index:D2}. Factura: {invoice.NoFactura} | Admisión: {invoice.IdAdmision} | Sede: {invoice.SedeId}");
@@ -51,7 +51,7 @@ public class FakeInvoiceDemo
         foreach (var invoice in fakeInvoices)
         {
             processedCount++;
-            
+
             // Create nullification process
             var proceso = FakeInvoiceGenerator.GenerateSingleFakeProcess(
                 TipoProceso.Anulacion,
@@ -63,16 +63,16 @@ public class FakeInvoiceDemo
             {
                 // Mark as sent
                 proceso.MarcarComoEnviado();
-                
+
                 // Call fake URL for nullification
-                var result = await _fakeEndpointService.LlamarEndpointAnulacionAsync(
-                    proceso.IdAdmision, 
+                var result = await _fakeEndpointService.LlamarEndpointNumeracionAsync(
+                    proceso.IdAdmision,
                     proceso.SedeId);
-                
+
                 // Mark as successful
                 proceso.MarcarComoExitoso(result);
                 successCount++;
-                
+
                 Console.WriteLine($"   ✓ Factura {proceso.NoFactura}: {result}");
             }
             catch (Exception ex)
@@ -101,20 +101,20 @@ public class FakeInvoiceDemo
     public void ShowDataGenerationCapabilities()
     {
         Console.WriteLine("\n=== Capacidades del Generador de Datos Fake ===");
-        
+
         // Generate different sizes of invoice lists
         var smallList = FakeInvoiceGenerator.GenerateFakeInvoiceList(3);
         var mediumList = FakeInvoiceGenerator.GenerateFakeInvoiceList(10);
         var largeList = FakeInvoiceGenerator.GenerateFakeInvoiceList(50);
-        
+
         Console.WriteLine($"Lista pequeña: {smallList.Count} facturas");
         Console.WriteLine($"Lista mediana: {mediumList.Count} facturas");
         Console.WriteLine($"Lista grande: {largeList.Count} facturas");
-        
+
         // Generate nullification processes
         var nullificationProcesses = FakeInvoiceGenerator.GenerateFakeNullificationProcesses(5);
         Console.WriteLine($"Procesos de anulación: {nullificationProcesses.Count} procesos");
-        
+
         // Generate custom invoice
         var customInvoice = FakeInvoiceGenerator.GenerateSingleFakeInvoice("CUSTOM001", 12345, 99);
         Console.WriteLine($"Factura personalizada: {customInvoice.NoFactura} - {customInvoice.IdAdmision} - {customInvoice.SedeId}");
@@ -126,15 +126,11 @@ public class FakeInvoiceDemo
     public async Task ShowFakeUrlResponsesAsync()
     {
         Console.WriteLine("\n=== Respuestas de URLs Fake ===");
-        
-        // Test nullification endpoint
-        var anulacionResult = await _fakeEndpointService.LlamarEndpointAnulacionAsync(12345, 1);
-        Console.WriteLine($"Endpoint Anulación: {anulacionResult}");
-        
+
         // Test numbering endpoint
         var numeracionResult = await _fakeEndpointService.LlamarEndpointNumeracionAsync(67890, 2);
         Console.WriteLine($"Endpoint Numeración: {numeracionResult}");
-        
+
         Console.WriteLine("Ambos endpoints siempre devuelven: \"Procesamiento Exitoso\"");
     }
 }

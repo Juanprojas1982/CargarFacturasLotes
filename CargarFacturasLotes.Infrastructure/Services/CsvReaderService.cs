@@ -15,9 +15,9 @@ public class CsvReaderService : ICsvReaderService
         }
 
         var lineas = await File.ReadAllLinesAsync(rutaArchivo);
-        
+
         // Saltar la primera línea si es encabezado (opcional)
-        bool tieneEncabezado = lineas.Length > 0 && !int.TryParse(lineas[0].Split(',')[1], out _);
+        bool tieneEncabezado = lineas.Length > 0 && !int.TryParse(lineas[0].Split(';')[1], out _);
         int inicioLineas = tieneEncabezado ? 1 : 0;
 
         for (int i = inicioLineas; i < lineas.Length; i++)
@@ -26,8 +26,8 @@ public class CsvReaderService : ICsvReaderService
             if (string.IsNullOrWhiteSpace(linea))
                 continue;
 
-            var campos = linea.Split(',');
-            
+            var campos = linea.Split(';');
+
             if (campos.Length < 3)
             {
                 throw new FormatException($"Línea {i + 1}: Formato inválido. Se esperan 3 campos separados por coma.");

@@ -11,15 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CargarFacturasLotes.Infrast
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CargarFacturasLotes.ConsoleApp", "CargarFacturasLotes.ConsoleApp\CargarFacturasLotes.ConsoleApp.csproj", "{8EDE1D5E-3500-4610-95F2-7ED73A31C35B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CargarFacturasLotes.Tests", "CargarFacturasLotes.Tests\CargarFacturasLotes.Tests.csproj", "{CEC7FDEC-ED9B-4393-9A42-2C9AFD7DFE10}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CargarFacturasLotes.WebApi", "CargarFacturasLotes.WebApi\CargarFacturasLotes.WebApi.csproj", "{30454948-50B2-4898-9F43-F0D1013A67B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8973F5C5-4BF3-44CC-A375-A241DE553A03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,9 +35,15 @@ Global
 		{8EDE1D5E-3500-4610-95F2-7ED73A31C35B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EDE1D5E-3500-4610-95F2-7ED73A31C35B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EDE1D5E-3500-4610-95F2-7ED73A31C35B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEC7FDEC-ED9B-4393-9A42-2C9AFD7DFE10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEC7FDEC-ED9B-4393-9A42-2C9AFD7DFE10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEC7FDEC-ED9B-4393-9A42-2C9AFD7DFE10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEC7FDEC-ED9B-4393-9A42-2C9AFD7DFE10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30454948-50B2-4898-9F43-F0D1013A67B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30454948-50B2-4898-9F43-F0D1013A67B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30454948-50B2-4898-9F43-F0D1013A67B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30454948-50B2-4898-9F43-F0D1013A67B6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {41A8F379-15D5-43EB-90AD-6E607B3DD29F}
 	EndGlobalSection
 EndGlobal

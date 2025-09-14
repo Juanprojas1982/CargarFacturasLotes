@@ -7,21 +7,14 @@ namespace CargarFacturasLotes.Infrastructure.Services;
 public class EndpointService : IEndpointService
 {
     private readonly HttpClient _httpClient;
-    private readonly string _endpointAnulacion;
     private readonly string _endpointNumeracion;
 
     public EndpointService(HttpClient httpClient, IConfiguration configuration)
     {
         _httpClient = httpClient;
-        _endpointAnulacion = configuration["Endpoints:EndpointAnulacion"] 
-            ?? throw new ArgumentException("EndpointAnulacion no configurado");
-        _endpointNumeracion = configuration["Endpoints:EndpointNumeracion"] 
-            ?? throw new ArgumentException("EndpointNumeracion no configurado");
-    }
 
-    public async Task<string> LlamarEndpointAnulacionAsync(int idAdmision, int sedeId)
-    {
-        return await LlamarEndpointAsync(_endpointAnulacion, idAdmision, sedeId);
+        _endpointNumeracion = configuration["Endpoints:EndpointNumeracion"]
+            ?? throw new ArgumentException("EndpointNumeracion no configurado");
     }
 
     public async Task<string> LlamarEndpointNumeracionAsync(int idAdmision, int sedeId)

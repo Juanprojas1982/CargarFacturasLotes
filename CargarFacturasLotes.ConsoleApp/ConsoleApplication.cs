@@ -37,12 +37,9 @@ public class ConsoleApplication
             switch (opcion)
             {
                 case "1":
-                    await ProcesarAnulacionAsync();
+                    await ProcesarRenumeracionAsync();
                     break;
                 case "2":
-                    await ProcesarNumeracionAsync();
-                    break;
-                case "3":
                     Console.WriteLine("Saliendo del sistema...");
                     return;
                 default:
@@ -60,19 +57,12 @@ public class ConsoleApplication
     private static void MostrarMenu()
     {
         Console.WriteLine("Seleccione una opción:");
-        Console.WriteLine("1. Anular facturas");
-        Console.WriteLine("2. Renumerar facturas");
-        Console.WriteLine("3. Salir");
+        Console.WriteLine("1. Renumerar facturas");
+        Console.WriteLine("2. Salir");
         Console.Write("Opción: ");
     }
 
-    private async Task ProcesarAnulacionAsync()
-    {
-        Console.WriteLine("=== ANULACIÓN DE FACTURAS ===");
-        await ProcesarTipoFacturaAsync(TipoProceso.Anulacion);
-    }
-
-    private async Task ProcesarNumeracionAsync()
+    private async Task ProcesarRenumeracionAsync()
     {
         Console.WriteLine("=== RENUMERACIÓN DE FACTURAS ===");
         await ProcesarTipoFacturaAsync(TipoProceso.Numeracion);
@@ -83,7 +73,7 @@ public class ConsoleApplication
         try
         {
             var rutaCsv = _configuration["CsvPath"];
-            
+
             if (string.IsNullOrEmpty(rutaCsv))
             {
                 Console.WriteLine("Error: No se ha configurado la ruta del archivo CSV (CsvPath)");
@@ -91,7 +81,7 @@ public class ConsoleApplication
             }
 
             Console.WriteLine($"Ruta del archivo CSV: {rutaCsv}");
-            
+
             // Check if file exists
             if (!File.Exists(rutaCsv))
             {
@@ -101,7 +91,7 @@ public class ConsoleApplication
 
             // Paso 1: Registrar facturas desde CSV
             Console.WriteLine("Paso 1: Leyendo y registrando facturas desde CSV...");
-            
+
             var registrosInsertados = await _registrarFacturasHandler.EjecutarAsync(rutaCsv, tipoProceso);
             Console.WriteLine($"Registros insertados: {registrosInsertados}");
 
@@ -113,9 +103,9 @@ public class ConsoleApplication
 
             // Paso 2: Procesar facturas pendientes
             Console.WriteLine("Paso 2: Procesando facturas pendientes...");
-            
+
             var (procesados, exitosos, errores) = await _procesarFacturasHandler.EjecutarAsync(tipoProceso);
-            
+
             Console.WriteLine($"Resumen de procesamiento:");
             Console.WriteLine($"- Total procesados: {procesados}");
             Console.WriteLine($"- Exitosos: {exitosos}");
